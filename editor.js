@@ -60,6 +60,8 @@ class Viewer extends Canvas {
 	}
 	render() {
 		this.save()
+			.clearRect(0, 0, this.width, this.height)
+		this.save()
 			.translate(this.center.x, this.center.y)
 			.strokeWidth(2)
 			.lineCap("round");
