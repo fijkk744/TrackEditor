@@ -1,0 +1,29 @@
+html, body {
+	margin: 0;
+	overflow: hidden;
+}
+textarea {
+	font-size: 20px;
+}
+button {
+	font-size: 30px;
+	cursor: pointer;
+	background: lightgray;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+button:hover {
+	background: gray;
+	border: 1px solid dimgray;
+}
+#area {
+	position: fixed;
+	text-align: center;
+	padding: 10px;
+	background: radial-gradient(lightgray, gray);
+	border: 1px solid black;
+	border-radius: 5px;
+}
+#screen {
+	
+}
