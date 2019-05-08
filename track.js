@@ -239,22 +239,6 @@ Track.scale = function(obj, x, y) {
 	});
 };
 
-Track.get = function(id) {
-	/* Needs local debugging */
-	var url = "https://cdn.freeriderhd.com/free_rider_hd/tracks/prd/" + id + "/track-data-v1.js";
-	var track = new Track();
-	var response = null;
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (!(this.readyState == 4 && this.status == 200))
-			return;
-		response = this.responseText;
-		track.add(Track.fromString("##"));
-	};
-	xhttp.open("GET", url, true);
-	xhttp.send();
-	return track;
-};
 class Rect extends Line {
 	constructor(x, y, w, h) {
 		super(x, y, x + w, y, x + w, y + h, x, y + h, x, y);
@@ -324,3 +308,23 @@ class TrackImage extends Track {
 		return this;
 	}
 }
+
+
+/*
+Track.get = function(id) {
+	// Needs local debugging
+	var url = "https://cdn.freeriderhd.com/free_rider_hd/tracks/prd/" + id + "/track-data-v1.js";
+	var track = new Track();
+	var response = null;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (!(this.readyState == 4 && this.status == 200))
+			return;
+		response = this.responseText;
+		track.add(Track.fromString("##"));
+	};
+	xhttp.open("GET", url, true);
+	xhttp.send();
+	return track;
+};
+*/

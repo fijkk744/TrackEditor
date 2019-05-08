@@ -1,3 +1,4 @@
+"use strict";
 class Canvas {
 	constructor(canvas) {
 		if (!(canvas instanceof HTMLCanvasElement)) {
@@ -5,8 +6,8 @@ class Canvas {
 			if (!(canvas instanceof HTMLCanvasElement))
 				canvas = document.createElement("canvas");
 		}
-		this.onresize = function() {};
 		this.screen = canvas;
+		this.onresize = function() {};
 		for (let name in this.context) {
 			if (typeof this.context[name] == "function")
 				this[name] = function() {
