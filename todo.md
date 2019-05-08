@@ -1,0 +1,27 @@
+To Do List:
+Custom cursor
+Grid/Snap to grid
+Undo/Redo
+Select lines/Powerups
+Copy/Paste selection
+Rendering optimization for rectangles
+Export track to downloadable .txt
+Track Generation:
+Trials
+Downhill/uphill
+Tools (GUI):
+Line
+Curve
+Fill/outline circle
+Fill/outline rectangle
+Prefabs/Pre-drawn objects (trees, rocks, etc.)
+Image generation
+Powerups/Vehicles
+Sprites:
+Tool buttons
+Powerups/Vehicles
+To Fix:
+Panning speed at scale!=1
+Precise zooming (zoom to cursor coordinates)
+Set zoom maximum
+Import/export
