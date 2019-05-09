@@ -1,17 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Track Editor</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="A non-official editor for Free Rider HD.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Track Editor</title>
+		<link rel="stylesheet" href="style.css"  type="text/css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+		<link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
+	</head>
   <body>
-  	
-  	<div>
-    	<canvas id="screen"></canvas>
-	</div>
+  	<nav>
+		<div id="sidebar">
+			<a href="">
+				<div class="track-editor-logo">
+					<img src="img/logo.png" alt="track editor logo" class="logo-img">
+				</div>
+			</a>
 
+			<div id="info">
+				<p class="caption">Upload track</p>
+				<label for="file-upload" class="custom-file-upload item">
+					<i class="fas fa-file-upload"></i>Upload a track
+					<input id="file-upload" type="file" />
+				</label>
+				<p class="caption">Track information</p>
+				<ul>
+					<li>Size</li>
+					<li>Other</li>
+					<li>Other 2</li>
+				</ul>
+				<p class="caption">Save track</p>
+			</div>
+		</div>
+	</nav>
+
+	<section id="tools">
+		 <ul>
+			<li><i class="fas fa-pencil-alt"></i></li>
+			<li><i class="fas fa-pen-fancy"></i></li>
+			<li><i class="fas fa-fill-drip"></i></li>
+			<li><i class="fas fa-eraser"></i></li>
+		</ul>
+	</section>
+
+	<section id="screen">
+		<canvas id="canvas"></canvas>
+	</section>
+
+	<footer>
+		<a href="https://github.com/fijkk744/TrackEditor" target="_blank"><i class="fab fa-github"></i></a>
+	</footer>
+
+	<script>
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext("2d");
+	c.width=(screen.width-300)*2;//horizontal resolution (?) - increase for better looking text
+	c.height=(screen.height)*2;//vertical resolution (?) - increase for better looking text
+	ctx.moveTo(0.5, 0.5);
+	ctx.lineTo(200.5, 100.5);
+	ctx.stroke();
+	console.log(screen.width, screen.height);
+	</script>
+	<!--
     <script src="track.js"></script>
-	<script src="editor.js"></script>
+	<script src="editor.js"></script> -->
   </body>
 </html>

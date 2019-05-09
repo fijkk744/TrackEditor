@@ -1,0 +1,191 @@
+html {
+	font-size: 100%;
+}
+
+body {
+	font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:visited {
+	color: white;
+}
+
+i {
+	margin:5px;
+}
+
+ul, ol, dl {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    list-style-image: none;
+}
+
+section {
+	display: block;
+}
+
+img {
+	border: 0;
+}
+
+#logo {
+	width: 100%;
+	background: #1d9fd2;
+	text-align: left;
+	padding: 10px;
+}
+
+#logo img{
+	width: 230px;
+	height: auto;
+}
+
+nav {
+	height: 100%;
+	width: 250px;
+	position: fixed;
+	z-index: 1;
+	padding-bottom: 2em;
+	top: 0;
+	left: 0;
+	color: #9b9b9b;
+	background: #343131;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	display: block;
+}
+
+#sidebar {
+	width: 270px;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 100%;
+}
+
+.track-editor-logo {
+	max-height: 55px;
+	width: 100%;
+	background: #c63232;
+	font-size: 140%;
+	color: white;
+	font-family: "Source Sans Pro", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+}
+
+.logo-img {
+	margin: 10px;
+	width: 80%;
+}
+
+#info .caption {
+	height: 32px;
+	line-height: 32px;
+	padding: 0 1.618em;
+	margin-bottom: 0;
+	display: block;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 80%;
+	white-space: nowrap;
+	margin: 0;
+}
+
+#info li {
+	line-height: 18px;
+	padding: .4045em 1.618em;
+	display: block;
+	position: relative;
+	font-size: 90%;
+	color: #d9d9d9;
+}
+
+#info li:hover {
+	background-color: #4e4a4a;
+}
+
+#info ul {
+	margin-bottom: 0;
+}
+
+#info {
+	width: 250;
+}
+
+#tools {
+	height: 100%;
+	width: 50px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 250px;
+	background-color: white;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	overflow-x: hidden;
+	text-align: center;
+	color: black;
+}
+
+#tools ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#tools li {
+	border-bottom: 1px solid black;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+}
+
+#tools li:hover {
+	background-color: rgba(128,128,128,0.3);
+}
+
+#screen {
+	margin-left: 300px;
+	min-height: 100%;
+	border: 5px solid blue;
+}
+
+input[type="file"] {
+    display: none;
+	margin-top: 50px;
+}
+
+.custom-file-upload {
+
+	padding: 5px 10px;
+    /* border: 1px solid #d9d9d9;
+	border-radius: 10px; */
+    cursor: pointer;
+}
+
+.custom-file-upload:hover {
+	background-color: #4e4a4a;
+}
+
+footer {
+	position: fixed;
+	width: 250px;
+	padding: 5px 0;
+	bottom: 0;
+	color: #fcfcfc;
+	background: #1f1d1d;
+	z-index: 1;
+	text-align: center;
+}
+
+#canvas {
+	width: 100%;
+	height: 100%;
+}
