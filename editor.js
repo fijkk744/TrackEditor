@@ -61,8 +61,9 @@ class Renderer {
 		var _self = this;
 		var a = ["add", "remove"][bool ? 0 : 1];
 		function resize() {
-			_self.width = screen.width;
-			_self.height = screen.height;
+			_self.width = _self.screen.parentElement.clientWidth - 10;
+			_self.height = _self.screen.parentElement.clientHeight - 10;
+			console.log(_self.width, _self.height);
 		}
 		resize();
 		window[a + "EventListener"]("resize", resize, false);

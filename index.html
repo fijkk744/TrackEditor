@@ -57,8 +57,9 @@
 	<script type="text/javascript">
 		"use strict";
 		var viewer = new Viewer();
+		viewer.fullscreen = true;
 		viewer.track = Track.fromString("-18 1i 18 1i##");
-		viewer.track.add(new FilledCircle(150, 150, 150));
+		viewer.track.add(new FilledCircle(50, 0, 150));
 		viewer.render();
 	</script>
   </body>
