@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="description" content="A non-official editor for Free Rider HD.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Track Editor</title>
+		<title>Nouvel onglet</title>
 		<link rel="stylesheet" href="style.css"  type="text/css" />
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-		<link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
+		<!-- <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" /> -->
 	</head>
   <body>
   	<nav>
@@ -19,18 +19,18 @@
 			</a>
 
 			<div id="info">
-				<label for="file-upload" class="custom-file-upload item">
-
-					<input id="file-upload" type="file" />
-				</label>
 				<p class="caption">Track information</p>
 				<ul>
-					<li>Size : x.xx Mo</li>
+					<li>Size: <span id="track-size"></span> kb</li>
 				</ul>
+				
 				<p class="caption">Import / Export</p>
 				<button type="button">Import</button>
 				<button type="button">Export</button>
-				<input type="text" id="code-input" name="code"/>
+				<textarea id="code-input" name="code" rows="4" cols="50"></textarea>
+				
+				<p class="caption">Clear track</p>
+				<button type="button" class="full-width">Reset</button>
 			</div>
 		</div>
 	</nav>
@@ -45,22 +45,45 @@
 	</section>
 
 	<section id="canvas">
-		<canvas id="screen"></canvas>
+		<canvas id="screen" height=200></canvas>
 	</section>
 
+	<!--
+	<img class="sprite" id="biker" src="http://icons.iconarchive.com/icons/icons8/ios7/256/Transport-Bicycle-icon.png" alt="Biker">
+	-->
 	<footer>
 		<a href="https://github.com/fijkk744/TrackEditor" target="_blank"><i class="fab fa-github"></i></a>
 	</footer>
 
+	<script>
+		var c = document.getElementById("screen");
+		var ws = screen.width, hs = screen.height;
+		c.width  = ws-300;
+		c.height = hs;
+		var ctx = c.getContext("2d");
+		
+		ctx.moveTo(0, 0);
+		ctx.lineTo(500, 100);
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+		ctx.stroke(); 
+	</script>
+	<!-- 
 	<script src="track.js"></script>
 	<script src="editor.js"></script>
 	<script type="text/javascript">
 		"use strict";
 		var viewer = new Viewer();
-		viewer.fullscreen = true;
+		//viewer.fullscreen = true;
 		viewer.track = Track.fromString("-18 1i 18 1i##");
 		viewer.track.add(new FilledCircle(50, 0, 150));
 		viewer.render();
-	</script>
+
+		for (let angle = 0; angle <= 360; angle++) {
+			
+		}
+	</script> -->
   </body>
 </html>
