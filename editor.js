@@ -10,11 +10,12 @@ class Renderer {
 			}
 		}
 		this.screen = canvas;
+		var parent = this.screen.parentNode;
+		this.resize(
+			parent.clientWidth || window.innerWidth,
+			canvas.clientHeight * 4 || window.innerHeight
+		);
 		for (let name in this.context) {
-			var a = name.match(/[a-z]+[A-Z]?/g);
-			
-			var sub = name.substring(name.indexOf(s) + s.length);
-			if 
 			if (typeof this.context[name] == "function")
 				this[name] = function() {
 					this.context[name].apply(this.context, arguments);
@@ -31,20 +32,32 @@ class Renderer {
 		}
 		this.devMode = true;
 		this.transform = {
-			scale: 1
+			scale: 1,
+			translate: {
+				x: 0,
+				y: 0
+			}
 		};
+		this.cursor = {
+			x: null,
+			y: null
+		};
+		var _self = this;
+		this.screen.addEventListener("mousemove", function(e) {
+			_self.cursor.x = e.offsetX;
+			_self.cursor.y = e.offsetY;
+		}, false);
 	}
 	sprite(id, x, y, size, radians) {
 		var img = document.querySelector("img.sprite#" + id);
-		this.save();
-		if (typeof rotation == "number")
-			this.rotate(radians);
 		try {
+			this.save();
+			if (typeof rotation == "number")
+				this.rotate(radians);
 			this.beginPath()
-			.drawImage(img, x - size / 2, y - size / 2, size, size)
-			.restore();
-		} catch(err) {
-			console.warn("Could not load image \"" + id + "\"");
+				.drawImage(img, x - size / 2, y - size / 2, size, size)
+				.restore();
+		} catch(e) {
 			return this;
 		}
 		if (this.devMode)
@@ -55,23 +68,26 @@ class Renderer {
 		return this;
 	}
 	line() {
-		this.beginPath().moveTo(arguments[0], arguments[1]);
+		this.beginPath()
+			.moveTo(arguments[0], arguments[1]);
 		for (let i = 2; i < arguments.length - 1; i += 2)
 			this.lineTo(arguments[i], arguments[i + 1]);
-		return this.closePath();
+		return this;
 	}
 	render() {}
+	/*
 	set fullscreen(bool) {
 		var _self = this;
-		var a = ["add", "remove"][bool ? 0 : 1];
-		function resize() {
-			_self.width = _self.screen.parentElement.clientWidth - 10;
-			_self.height = _self.screen.parentElement.clientHeight - 10;
-			console.log(_self.width, _self.height);
-		}
+		var resize = function() {
+			var b = _self.screen.parentElement.getBoundingClientRect();
+			_self.width = b.width;
+			_self.height = b.height;
+			_self.onresize.call(_self);
+		};
 		resize();
+		var a = ["add", "remove"][bool ? 0 : 1];
 		window[a + "EventListener"]("resize", resize, false);
-	}
+	}*/
 	resize(width, height) {
 		this.width = width;
 		this.height = height;
@@ -92,16 +108,41 @@ class Renderer {
 class Viewer extends Renderer {
 	constructor(canvas) {
 		super(canvas);
-		this.track = new Track();
-		this.gridSize = 200;
-		this.showGrid = true;
-		//EVENTS
 		var _self = this;
+		this.track = new Track();
+		this.screen.style.background = "blue";
+		console.log(this.width, this.height);
+		this.cursor.show = false;
+		this.grid = {
+			size: 200,
+			show: true
+		};
+		//EVENTS
+
+		
+		this.screen.addEventListener("mouseover", function() {
+			_self.cursor.show = true;
+		}, false);
+		this.screen.addEventListener("mouseout", function() {
+			_self.cursor.show = false;
+		}, false);
+
 		var mousedown = null;
+		function zoom(e) {
+			var z = 1 + Math.sign(e.deltaY) / 20;
+			var future = _self.transform.scale + z - 1;
+			if (future < 0 || future > 3)
+				return;
+			_self.translate(e.offsetX, e.offsetY)
+				.scale(z, z)
+				.translate(-e.offsetX, -e.offsetY);
+			_self.transform.scale = future;
+			_self.render();
+		}
 
 		function pan(e) {
 			if (!mousedown) return;
-			var scale = _self.transform.scale;
+			var scale = 1 / _self.transform.scale;
 			_self.translate(
 				scale * (e.offsetX - mousedown.offsetX),
 				scale * (e.offsetY - mousedown.offsetY)
@@ -113,26 +154,37 @@ class Viewer extends Renderer {
 		this.screen.addEventListener("mousedown", function(e) {
 			mousedown = e;
 		}, false);
-		this.screen.addEventListener("mouseup", function() {
+		this.screen.addEventListener("mouseup", function(e) {
 			mousedown = null;
 		}, false);
 		this.screen.addEventListener("mousemove", pan, false);
-		/*this.screen.addEventListener("wheel", function(e) {
-			var scale = 1 + 1 / e.deltaY;
-			_self.scale(scale, scale);
-			_self.render();
-		}, false);*/
-		this.lineCap("round");
+		this.screen.addEventListener("wheel", zoom, false);
+		this.lineCap("round")
+			.textAlign("left")
+			.textBaseline("top")
+			.font("20px Arial Black");
 	}
 	render() {
+		var point = this.contextualize(this.cursor.x, this.cursor.y);
 		this.save()
 			.setTransform(1, 0, 0, 1, 0, 0)
 			.clearRect(0, 0, this.width, this.height)
-			.restore();
-		this.save()
-			.translate(this.center.x, this.center.y)
-			.scale(this.transform.scale, this.transform.scale)
-			.sprite("biker", 0, 0, 100)
+			.fillText(Math.round(this.transform.scale * 10000) / 100 + "%", 0, 0)
+			.fillText(point.x + ", " + point.y, 0, 40)
+			.fillText(this.cursor.x + ", " + this.cursor.y, 0, 80)
+			.restore()
+			.save()
+			.translate(this.center.x, this.center.y);
+		if (this.grid.show) {
+			for (let n = -20; n <= 20; n++) {
+				var s = this.grid.size;
+				this.line(s * n, -20 * s, s * n, 20 * s)
+					.stroke()
+					.line(-20 * s, s * n, 20 * s, s * n)
+					.stroke();
+			}
+		}
+		this.sprite("biker", 0, 0, 100)
 			.lineWidth(2);
 		for (let n = 1; n >= 0; n--) {
 			var color = ["black", "gray"][n];
@@ -144,35 +196,10 @@ class Viewer extends Renderer {
 		}
 		this.restore();
 	}
+	contextualize(x, y) {
+		return {
+			x: x - this.center.x + this.transform.translate.x,
+			y: y - this.center.y + this.transform.translate.y
+		};
+	}
 }
-
-/*
-function(){
-	var t = window.innerHeight,
-		e = window.innerWidth;
-	if (!this.settings.fullscreen && !this.settings.isStandalone) {
-		var i = this.gameContainer;
-		t = i.clientHeight,
-		e = i.clientWidth
-	}
-	if (this.currentScene) {
-		var s = this.currentScene.getCanvasOffset();
-		t -= s.height
-	}
-	var n = 1;
-	if (window.devicePixelRatio !== void 0)
-		n = window.devicePixelRatio;
-	if (this.settings.lowQualityMode)
-		n = 1;
-	//void 0 !== window.devicePixelRatio && (n=window.devicePixelRatio),this.settings.lowQualityMode && (n=1);
-
-	var r = e * n,
-		o = t * n;
-	(r !== this.width || o !== this.height) && 
-	(this.width = r, 
-	this.height = o,
-	this.canvas.width = r,
-	this.canvas.height = o),
-
-	this.pixelRatio = n,this.canvas.style.width=e+"px",this.canvas.style.height=t+"px",this.currentScene&&this.currentScene.command("resize")}
-*/
