@@ -23,12 +23,12 @@
 				<ul>
 					<li>Size: <span id="track-size"></span> kb</li>
 				</ul>
-				
+
 				<p class="caption">Import / Export</p>
 				<button type="button">Import</button>
 				<button type="button">Export</button>
 				<textarea id="code-input" name="code" rows="4" cols="50"></textarea>
-				
+
 				<p class="caption">Clear track</p>
 				<button type="button" class="full-width">Reset</button>
 			</div>
@@ -61,16 +61,16 @@
 		c.width  = ws-300;
 		c.height = hs;
 		var ctx = c.getContext("2d");
-		
+
 		ctx.moveTo(0, 0);
 		ctx.lineTo(500, 100);
 		ctx.stroke();
-		
+
 		ctx.beginPath();
 		ctx.arc(95, 50, 40, 0, 2 * Math.PI);
-		ctx.stroke(); 
+		ctx.stroke();
 	</script>
-	<!-- 
+	<!--
 	<script src="track.js"></script>
 	<script src="editor.js"></script>
 	<script type="text/javascript">
@@ -82,7 +82,7 @@
 		viewer.render();
 
 		for (let angle = 0; angle <= 360; angle++) {
-			
+
 		}
 	</script> -->
   </body>

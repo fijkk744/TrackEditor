@@ -1,4 +1,5 @@
 To Do List:
+-----------
 Custom cursor
 Grid/Snap to grid
 Undo/Redo
@@ -9,7 +10,9 @@ Export track to downloadable .txt
 Track Generation:
 Trials
 Downhill/uphill
+------------
 Tools (GUI):
+------------
 Line
 Curve
 Fill/outline circle
@@ -17,7 +20,9 @@ Fill/outline rectangle
 Prefabs/Pre-drawn objects (trees, rocks, etc.)
 Image generation
 Powerups/Vehicles
+--------
 Sprites:
+--------
 Tool buttons
 Powerups/Vehicles
 To Fix:
