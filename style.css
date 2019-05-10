@@ -177,11 +177,6 @@ nav {
 	background-color: rgba(128,128,128,0.3);
 }
 
-#screen {
-	margin-left: 300px;
-	min-height: 100%;
-	border: 5px solid blue;
-}
 
 input[type="file"] {
     display: none;
@@ -199,7 +194,9 @@ input[type="file"] {
 .custom-file-upload:hover {
 	background-color: #4e4a4a;
 }
-
+.track-editor-logo {
+	text-align: center;
+}
 footer {
 	position: fixed;
 	width: 250px;
@@ -210,12 +207,20 @@ footer {
 	z-index: 1;
 	text-align: center;
 }
-
 #canvas {
+	margin-left: 300px;
+	border: 5px solid blue;
+}
+
+#canvas1 {
 	width: 100%;
 	height: 100%;
 }
 
 .sprite-tool {
 	width: 50px;
+	user-select: none;
+}
+.sprite-tool:hover {
+	cursor: pointer;
 }

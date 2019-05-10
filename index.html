@@ -25,7 +25,7 @@
 				</label>
 				<p class="caption">Track information</p>
 				<ul>
-					<li>Size : x.xx Mo</li>
+					<li>Size: <span id="track-size"></span> kb</li>
 				</ul>
 				<p class="caption">Import / Export</p>
 				<button type="button">Import</button>
@@ -48,6 +48,7 @@
 		<canvas id="screen"></canvas>
 	</section>
 
+	<img class="sprite" id="biker" src="http://icons.iconarchive.com/icons/icons8/ios7/256/Transport-Bicycle-icon.png" alt="Biker">
 	<footer>
 		<a href="https://github.com/fijkk744/TrackEditor" target="_blank"><i class="fab fa-github"></i></a>
 	</footer>
@@ -57,10 +58,14 @@
 	<script type="text/javascript">
 		"use strict";
 		var viewer = new Viewer();
-		viewer.fullscreen = true;
+		//viewer.fullscreen = true;
 		viewer.track = Track.fromString("-18 1i 18 1i##");
 		viewer.track.add(new FilledCircle(50, 0, 150));
 		viewer.render();
+
+		for (let angle = 0; angle <= 360; angle++) {
+			
+		}
 	</script>
   </body>
 </html>

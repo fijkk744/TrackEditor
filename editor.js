@@ -11,6 +11,12 @@ class Renderer {
 		}
 		this.screen = canvas;
 		for (let name in this.context) {
+			var s = name.match(/[a-z]+[A-Z]?/g)[0];
+
+			var sub = name.substring(name.indexOf(s) + s.length);
+			name = sub;
+			if (sub === "")
+				console.log(s);
 			if (typeof this.context[name] == "function")
 				this[name] = function() {
 					this.context[name].apply(this.context, arguments);
@@ -68,10 +74,9 @@ class Renderer {
 		resize();
 		window[a + "EventListener"]("resize", resize, false);
 	}
-	set resolution(string) {
-		var a = string.toLowerCase().split("x");
-		this.width = parseInt(a[0]);
-		this.height = parseInt(a[1]);
+	resize(width, height) {
+		this.width = width;
+		this.height = height;
 	}
 	get width() { return this.screen.width; }
 	get height() { return this.screen.height; }
@@ -92,7 +97,6 @@ class Viewer extends Renderer {
 		this.track = new Track();
 		this.gridSize = 200;
 		this.showGrid = true;
-		this.resolution = "400x400";
 		//EVENTS
 		var _self = this;
 		var mousedown = null;
@@ -111,15 +115,15 @@ class Viewer extends Renderer {
 		this.screen.addEventListener("mousedown", function(e) {
 			mousedown = e;
 		}, false);
-		this.screen.addEventListener("mouseup", function(e) {
+		this.screen.addEventListener("mouseup", function() {
 			mousedown = null;
 		}, false);
 		this.screen.addEventListener("mousemove", pan, false);
-		this.screen.addEventListener("wheel", function(e) {
+		/*this.screen.addEventListener("wheel", function(e) {
 			var scale = 1 + 1 / e.deltaY;
 			_self.scale(scale, scale);
 			_self.render();
-		}, false);
+		}, false);*/
 		this.lineCap("round");
 	}
 	render() {
@@ -143,3 +147,53 @@ class Viewer extends Renderer {
 		this.restore();
 	}
 }
+
+/*
+function(){
+	var t = window.innerHeight,
+		e = window.innerWidth;
+	if (!this.settings.fullscreen && !this.settings.isStandalone) {
+		var i = this.gameContainer;
+		t = i.clientHeight,
+		e = i.clientWidth
+	}
+	if (this.currentScene) {
+		var s = this.currentScene.getCanvasOffset();
+		t -= s.height
+	}
+	var n = 1;
+	if (window.devicePixelRatio !== void 0)
+		n = window.devicePixelRatio;
+	if (this.settings.lowQualityMode)
+		n = 1;
+	//void 0 !== window.devicePixelRatio && (n=window.devicePixelRatio),this.settings.lowQualityMode && (n=1);
+
+	var r = e * n,
+		o = t * n;
+	(r !== this.width || o !== this.height) && 
+	(this.width = r, 
+	this.height = o,
+	this.canvas.width = r,
+	this.canvas.height = o),
+
+	this.pixelRatio = n,this.canvas.style.width=e+"px",this.canvas.style.height=t+"px",this.currentScene&&this.currentScene.command("resize")}
+*/
+
+function filterNone() {
+    return NodeFilter.FILTER_ACCEPT;
+}
+
+function getAllComments(rootElem) {
+    var comments = [];
+    // Fourth argument, which is actually obsolete according to the DOM4 standard, is required in IE 11
+    var iterator = document.createNodeIterator(rootElem, NodeFilter.SHOW_COMMENT, filterNone, false);
+    var curNode;
+    while (curNode = iterator.nextNode()) {
+        comments.push(curNode.nodeValue);
+    }
+    return comments;
+}
+
+window.addEventListener("load", function() {
+    console.log(getAllComments(document.body));
+});
