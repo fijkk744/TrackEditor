@@ -11,12 +11,10 @@ class Renderer {
 		}
 		this.screen = canvas;
 		for (let name in this.context) {
-			var s = name.match(/[a-z]+[A-Z]?/g)[0];
-
+			var a = name.match(/[a-z]+[A-Z]?/g);
+			
 			var sub = name.substring(name.indexOf(s) + s.length);
-			name = sub;
-			if (sub === "")
-				console.log(s);
+			if 
 			if (typeof this.context[name] == "function")
 				this[name] = function() {
 					this.context[name].apply(this.context, arguments);
@@ -178,22 +176,3 @@ function(){
 
 	this.pixelRatio = n,this.canvas.style.width=e+"px",this.canvas.style.height=t+"px",this.currentScene&&this.currentScene.command("resize")}
 */
-
-function filterNone() {
-    return NodeFilter.FILTER_ACCEPT;
-}
-
-function getAllComments(rootElem) {
-    var comments = [];
-    // Fourth argument, which is actually obsolete according to the DOM4 standard, is required in IE 11
-    var iterator = document.createNodeIterator(rootElem, NodeFilter.SHOW_COMMENT, filterNone, false);
-    var curNode;
-    while (curNode = iterator.nextNode()) {
-        comments.push(curNode.nodeValue);
-    }
-    return comments;
-}
-
-window.addEventListener("load", function() {
-    console.log(getAllComments(document.body));
-});
